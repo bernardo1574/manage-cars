@@ -1,3 +1,5 @@
+import lodash from "lodash";
+
 import { ICar } from "@modules/managerCars/Models/Car";
 import { CarInMemory as Car } from "@modules/managerCars/Models/CarInMemory";
 
@@ -20,6 +22,7 @@ class CarRepositoryInMemory implements ICarRepository {
     price,
     version,
     year,
+    id,
   }: ICreateCarDTO): Promise<void> {
     const car = new Car();
 
@@ -31,6 +34,7 @@ class CarRepositoryInMemory implements ICarRepository {
       price,
       version,
       year,
+      id,
     });
 
     this.cars.push(car);
@@ -44,8 +48,13 @@ class CarRepositoryInMemory implements ICarRepository {
     throw new Error("Method not implemented.");
   }
   async verifyCar(car: ICreateCarDTO): Promise<ICar> {
-    console.log(this.cars);
-    return this.cars.find((carVerify) => carVerify === car);
+    return this.cars.find(
+      (res) =>
+        res.brand === car.brand &&
+        res.model === car.model &&
+        res.price === car.price &&
+        res.year === car.year
+    );
   }
 }
 

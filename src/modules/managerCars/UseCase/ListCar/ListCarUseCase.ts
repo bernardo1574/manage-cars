@@ -1,8 +1,8 @@
-import { ICar } from "@modules/managerCars/Models/Car";
-import { ICarRepository } from "@modules/managerCars/Repositories/ICarReporitory";
 import { isValidObjectId } from "mongoose";
 import { inject, injectable } from "tsyringe";
 
+import { ICar } from "@modules/managerCars/Models/Car";
+import { ICarRepository } from "@modules/managerCars/Repositories/ICarReporitory";
 import { AppError } from "@shared/errors/AppError";
 
 @injectable()

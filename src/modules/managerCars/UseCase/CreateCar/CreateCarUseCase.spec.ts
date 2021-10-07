@@ -4,6 +4,15 @@ import { AppError } from "@shared/errors/AppError";
 
 import { CreateCarUseCase } from "./CreateCarUseCase";
 
+const CREATE_CAR = {
+  model: "Model Test",
+  brand: "Brand Test",
+  version: "1.0",
+  year: 2021,
+  milage: "0km",
+  gearshift: "Automático",
+  price: "R$ 200.000,00",
+};
 let createCarUseCase: CreateCarUseCase;
 let carRepositoryInMemory: CarRepositoryInMemory;
 
@@ -13,38 +22,22 @@ describe("Create car", () => {
     createCarUseCase = new CreateCarUseCase(carRepositoryInMemory);
   });
   it("should be able to create a new car", async () => {
-    const CREATE_CAR = {
-      model: "Model Test",
-      brand: "Brand Test",
-      version: "1.0",
-      year: 2021,
-      milage: "0km",
-      gearshift: "Automático",
-      price: "R$ 200.000,00",
-    };
-    await createCarUseCase.execute({
-      model: "Model Test",
-      brand: "Brand Test",
-      version: "1.0",
-      year: 2021,
-      milage: "0km",
-      gearshift: "Automático",
-      price: "R$ 200.000,00",
-    });
-    const carCreated = await carRepositoryInMemory.verifyCar({
-      model: "Model Test",
-      brand: "Brand Test",
-      version: "1.0",
-      year: 2021,
-      milage: "0km",
-      gearshift: "Automático",
+    await createCarUseCase.execute(CREATE_CAR);
+    const carCrerated = await carRepositoryInMemory.verifyCar({
+      ...CREATE_CAR,
       price: Number(
-        parseInt("R$ 200.000,00".replace(/[^0-9]/g, ""), 10).toFixed(2)
+        parseInt(CREATE_CAR.price.replace(/[^0-9]/g, ""), 10).toFixed(2)
       ),
     });
 
-    console.log(carCreated);
+    expect(carCrerated).toHaveProperty("id");
+  });
 
-    expect(carCreated).toHaveProperty("_id");
+  it("should not be able to create a new car with car existis", async () => {
+    await expect(async () => {
+      await createCarUseCase.execute(CREATE_CAR);
+
+      await createCarUseCase.execute(CREATE_CAR);
+    }).rejects.toBeInstanceOf(AppError);
   });
 });
