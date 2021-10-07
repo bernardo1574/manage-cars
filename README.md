@@ -23,7 +23,7 @@ Project developed for a selection process in which the user should create a cars
 To run this project, you will need to add the following environment variables to your .env file
 
 `PORT=3001`
-`DATABASE_URL="mongodb://database:27017/car_manager"`
+`DATABASE_URL="mongodb://localhost:27017/car_manager"`
 
 ## Installation
 
@@ -35,17 +35,33 @@ Clone the repository:
   git clone https://github.com/bernardo1574/manage-cars.git
 ```
 
-Create an env file and insert the variables passed above
+Create an .env file and insert the variables passed above
 
 ```
 PORT=3001
-DATABASE_URL="mongodb://database:27017/car_manager"
+DATABASE_URL="mongodb://localhost:27017/car_manager"
 ```
 
-execute docker-compose:
+install dependencies::
+
+```
+yarn
+or
+npm install
+```
+
+Open a terminal and run docker-compose:
 
 ```
 docker-compose up --force-recreate
+```
+
+Open another terminal and run the following command
+
+```
+yarn dev
+or
+npm run dev
 ```
 
 After you have done all the installation steps and the api is running go to /api-docs to view the documents.
