@@ -1,0 +1,292 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Car Management Documentation",
+    "description": "This is an API Car Management",
+    "version": "1.0.0",
+    "contact": {
+      "email": "bernardopiero12330@gmail.com"
+    }
+  },
+  "paths": {
+    "/cars": {
+      "post": {
+        "tags": [
+          "Car Management"
+        ],
+        "summary": "Create a new Car",
+        "description": "Create a new Car",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "brand": {
+                    "type": "string"
+                  },
+                  "model": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "year": {
+                    "type": "number"
+                  },
+                  "milage": {
+                    "type": "string"
+                  },
+                  "gearshift": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "brand": "Honda",
+                  "model": "Civic",
+                  "version": "2.0",
+                  "year": 2019,
+                  "milage": "31500 km",
+                  "gearshift": "Automática",
+                  "price": "R$ 109.990,00"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Car already existis"
+          },
+          "500": {
+            "description": "Category Already Exists"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Car Management"
+        ],
+        "summary": "List all Cars",
+        "description": "List all Cars. Unfortunately, so far the swagger doesn't accept passing more than one repeated parameter in the query. To test the price or year range, go straight to the url. Ex.: /cars?year=2000&year=2001 or /cars?price=R$100,000.00&price=R$200,000.00",
+        "parameters": [
+          {
+            "name": "model",
+            "in": "query",
+            "type": "string",
+            "format": "model",
+            "required": false
+          },
+          {
+            "name": "brand",
+            "in": "query",
+            "type": "string",
+            "format": "brand",
+            "required": false
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "type": "string",
+            "format": "version",
+            "required": false
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "type": "number",
+            "format": "year",
+            "required": false
+          },
+          {
+            "name": "milage",
+            "in": "query",
+            "type": "string",
+            "format": "milage",
+            "required": false
+          },
+          {
+            "name": "gearshift",
+            "in": "query",
+            "type": "string",
+            "format": "gearshift",
+            "required": false
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "type": "string",
+            "format": "price",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "Content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "properties": {
+                      "brand": {
+                        "type": "string"
+                      },
+                      "model": {
+                        "type": "string"
+                      },
+                      "version": {
+                        "type": "string"
+                      },
+                      "year": {
+                        "type": "number"
+                      },
+                      "milage": {
+                        "type": "string"
+                      },
+                      "gearshift": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/{id}": {
+      "put": {
+        "tags": [
+          "Car Management"
+        ],
+        "summary": "Update a car",
+        "description": "update a car",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "car id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "brand": {
+                    "type": "string"
+                  },
+                  "model": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "year": {
+                    "type": "number"
+                  },
+                  "milage": {
+                    "type": "string"
+                  },
+                  "gearshift": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "brand": "Honda",
+                  "model": "Civic Updated",
+                  "version": "2.0",
+                  "year": 2019,
+                  "milage": "31500 km",
+                  "gearshift": "Automática",
+                  "price": "R$ 109.990,00"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "Car not found"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Car Management"
+        ],
+        "summary": "List Car by ID",
+        "description": "List Car by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "car id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "Content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "properties": {
+                    "brand": {
+                      "type": "string"
+                    },
+                    "model": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "string"
+                    },
+                    "year": {
+                      "type": "number"
+                    },
+                    "milage": {
+                      "type": "string"
+                    },
+                    "gearshift": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

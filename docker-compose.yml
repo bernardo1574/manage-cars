@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  database:
+    image: mongo:4.0.17-xenial
+    container_name: db_mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=car_manager
+
+  # app:
+  #   build: .
+  #   container_name: car_manager
+  #   restart: always
+  #   ports:
+  #     - 3333:3333
+  #     - 9229:9229
+  #   volumes:
+  #     - .:/usr/app
+  #   links:
+  #     - database
+  #   depends_on:
+  #     - database
