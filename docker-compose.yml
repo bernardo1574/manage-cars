@@ -15,7 +15,7 @@ services:
     container_name: car_manager
     restart: always
     ports:
-      - 3001:3001
+      - 3333:3333
       - 9229:9229
     volumes:
       - .:/usr/app
